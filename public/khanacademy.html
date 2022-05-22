@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- 
+    This is the main Handlebars template for the site 
+    - When the user visits the homepage or submits a choice the app calls the endpoints in server.js
+    - The server script passes data in here and the Handlebars code builds it into the HTML page
+  -->
+
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{{seo.title}}</title>
+
+    <!-- Meta tags for SEO and social sharing -->
+    <link rel="canonical" href="{{seo.url}}" />
+    <meta name="description" content="{{seo.description}}" />
+    <meta property="og:title" content="{{seo.title}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{seo.url}}" />
+    <meta property="og:description" content="{{seo.description}}" />
+    <meta property="og:image" content="{{seo.image}}" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Show choice chart on poll submission -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+      /*
+    The chart uses chart.js - try tweaking the config!
+    https://www.chartjs.org/docs/3.0.2/charts/doughnut.html
+    
+    We pass the choices and picks arrays from the page when the server script returns them
+    */
+      function showChart(choices, picks) {
+        // Get the page element to show the chart inside
+        var ctx = document.getElementById("myChart");
+
+        // Set up the chart colors
+        var colors = ["#05DA84", "#E6E656", "#E5AED6"];
+        var border = "#ffffff";
+
+        // Make sure we have some votes–if not show an empty chart
+        if (picks.reduce((a, b) => a + b, 0) < 1) {
+          picks = ["1e-10"]; // use a near zero value so that the doughnut displays
+          choices = ["No votes! Reload and vote again."];
+          colors = ["#00000000"]; // we'll show an empty doughnut shape
+          border = ["#000000"];
+        }
+
+        // Build the chart in the page element);
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="content" role="main">
+        <!-- This is the start of content for our page -->
+        <h1>Khan Academy</h1>
+        <h2>Rank a category from 1 to 5 below:</h2>
+        <!-- Server returns a flag when the user has submitted a choice and we show the results -->
+
+        <h2>Quick Learning:</h2>
+
+        <form method="POST" action="/khanacademy/vote">
+          <div>
+            <input
+              type="radio"
+              id="quickLearning1"
+              name="quickLearning"
+              value="1"
+            />
+            <label for="quickLearning1">1</label>
+            <input
+              type="radio"
+              id="quickLearning2"
+              name="quickLearning"
+              value="2"
+            />
+            <label for="quickLearning2">2</label>
+            <input
+              type="radio"
+              id="quickLearning3"
+              name="quickLearning"
+              value="3"
+            />
+            <label for="quickLearning3">3</label>
+            <input
+              type="radio"
+              id="quickLearning4"
+              name="quickLearning"
+              value="4"
+            />
+            <label for="quickLearning4">4</label>
+            <input
+              type="radio"
+              id="quickLearning5"
+              name="quickLearning"
+              value="5"
+            />
+            <label for="quickLearning5">5</label>
+          </div>
+          <h2>Easy to Use</h2>
+          <div>
+            <input type="radio" id="easyToUse1" name="easyToUse" value="1" />
+            <label for="easyToUse1">1</label>
+            <input type="radio" id="easyToUse2" name="easyToUse" value="2" />
+            <label for="easyToUse2">2</label>
+            <input type="radio" id="easyToUse3" name="easyToUse" value="3" />
+            <label for="easyToUse3">3</label>
+            <input type="radio" id="easyToUse4" name="easyToUse" value="4" />
+            <label for="easyToUse4">4</label>
+            <input type="radio" id="easyToUse5" name="easyToUse" value="5" />
+            <label for="easyToUse5">5</label>
+          </div>
+          <h2>Networking</h2>
+          <div>
+            <input type="radio" id="networking1" name="networking" value="1" />
+            <label for="networking1">1</label>
+            <input type="radio" id="networking2" name="networking" value="2" />
+            <label for="networking2">2</label>
+            <input type="radio" id="networking3" name="networking" value="3" />
+            <label for="networking3">3</label>
+            <input type="radio" id="networking4" name="networking" value="4" />
+            <label for="networking4">4</label>
+            <input type="radio" id="networking5" name="networking" value="5" />
+            <label for="networking5">5</label>
+          </div>
+          <h2>Career Progression</h2>
+          <!--           <input type="range" id="careerProgression" name="careerProgression" min="0" max="5"> -->
+          <div>
+            <input
+              type="radio"
+              id="careerProgression1"
+              name="careerProgression"
+              value="1"
+            />
+            <label for="careerProgression1">1</label>
+            <input
+              type="radio"
+              id="careerProgression2"
+              name="careerProgression"
+              value="2"
+            />
+            <label for="careerProgression2">2</label>
+            <input
+              type="radio"
+              id="careerProgression3"
+              name="careerProgression"
+              value="3"
+            />
+            <label for="careerProgression3">3</label>
+            <input
+              type="radio"
+              id="careerProgression4"
+              name="careerProgression"
+              value="4"
+            />
+            <label for="careerProgression4">4</label>
+            <input
+              type="radio"
+              id="careerProgression5"
+              name="careerProgression"
+              value="5"
+            />
+            <label for="careerProgression5">5</label>
+          </div>
+          <br />
+          <input type="submit" value="Vote" />
+        </form>
+
+ <button>
+            <a class="noTxtStyles" href="/index.html">Go Home</a>
+          </button>
+      </div>
+
+      <!-- Instructions on using this project -->
+    </div>
+    <!-- The footer holds our remix button — you can use it for structure or cut it out ✂ -->
+  </body>
+</html>
+
+<!-- bar graph starts -->
+
+<!--       <html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+  
+    <style>
+        .piechart {
+            margin-top: 300px;
+            display: block;
+            position: absolute;
+            width: 159px;
+            height: 150px;
+            border-radius: 50%;
+            background-image: conic-gradient(
+                green 100deg, 
+                red 0 235deg, 
+                orange 0);
+        }
+  
+        body,
+        .piechart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+  
+<body>
+    <div class="piechart"></div>
+</body>
+  
+</html> -->
